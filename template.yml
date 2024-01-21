@@ -25,6 +25,9 @@ Resources:
       PrimaryKey:
         Name: visitors
         Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
 
   # Get All Visitors
   GetVisitorAPI:
