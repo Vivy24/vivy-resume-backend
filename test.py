@@ -23,7 +23,7 @@ class TestLambdaHandler(unittest.TestCase):
         mock_table.update_item.return_value = {}
 
         # Mock event for the "GET /visitors" route
-        event = {'routeKey': 'GET /visitors'}
+        event = {'httpMethod': 'GET'}
 
         # Call the Lambda handler
         response = lambda_handler(event, None)
@@ -37,7 +37,7 @@ class TestLambdaHandler(unittest.TestCase):
 
     def test_unknown_route(self):
         # Mock event for an unknown route
-        event = {'routeKey': 'POST /some_route'}
+        event = {'httpMethod': 'POST'}
 
         # Call the Lambda handler
         response = lambda_handler(event, None)
