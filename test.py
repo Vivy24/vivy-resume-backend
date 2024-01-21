@@ -16,7 +16,7 @@ class TestLambdaHandler(unittest.TestCase):
 
         # Mock DynamoDB get_item response
         mock_table.get_item.return_value = {
-            'Item': {'visitor': 'resume', 'current': '1'}
+            'Item': {'visitors': 'resume', 'current': '1'}
         }
 
         # Mock DynamoDB update_item response
@@ -80,9 +80,9 @@ class TestLambdaHandler(unittest.TestCase):
 
         # Additional assertions for the case when no item is found initially
         mock_table.put_item.assert_called_once_with(
-            Item={'visitor': 'resume', 'current': 0})
+            Item={'visitors': 'resume', 'current': 0})
         mock_table.update_item.assert_called_once_with(
-            Key={'visitor': 'resume'},
+            Key={'visitors': 'resume'},
             UpdateExpression='SET #attrName = :val1',
             ExpressionAttributeNames={'#attrName': 'current'},
             ExpressionAttributeValues={':val1': '1'}
