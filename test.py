@@ -65,7 +65,7 @@ class TestLambdaHandler(unittest.TestCase):
         mock_table.update_item.return_value = {}
 
         # Mock event for the "GET /visitors" route
-        event = {'routeKey': 'GET /visitors'}
+        event = {'httpMethod': 'GET'}
 
         # Call the Lambda handler
         response = lambda_handler(event, None)
