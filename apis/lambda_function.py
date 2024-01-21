@@ -7,24 +7,24 @@ logger.setLevel(logging.INFO)
 
 
 def lambda_handler(event, context):
-    if event['routeKey'] == 'GET /visitors':
+    if event['httpMethod'] == 'GET':
         # Get the service resource.
         dynamodb = boto3.resource('dynamodb')
 
         # Instantiate a table resource object without actually
         # creating a DynamoDB table.
-        table = dynamodb.Table('resume-visitor')
+        table = dynamodb.Table('resume-visitors')
 
         # get the item
         response = table.get_item(
             Key={
-                'visitor': 'resume',
+                'visitors': 'resume',
             }
         )
 
         if "Item" not in response:
             logging.info("No Visitor Counter in DynamoDB Table. Creating...")
-            table.put_item(Item={"visitor": "resume", "current": 0},)
+            table.put_item(Item={"visitors": "resume", "current": 0},)
             currentTotal = 1
         else:
             item = response['Item']
@@ -33,7 +33,7 @@ def lambda_handler(event, context):
         # update the counter
         table.update_item(
             Key={
-                'visitor': 'resume',
+                'visitors': 'resume',
             },
             UpdateExpression='SET #attrName = :val1',
             ExpressionAttributeNames={
